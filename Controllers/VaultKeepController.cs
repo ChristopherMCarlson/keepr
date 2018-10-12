@@ -31,7 +31,7 @@ namespace keepr.Controllers
     }
 
     [HttpGet("{vaultId}")]
-    public IEnumerable<Keep> GetVaultKeep([FromBody]int vaultId)
+    public IEnumerable<Keep> GetVaultKeep(int vaultId)
     {
       return _repo.GetVaultKeep(vaultId);
     }

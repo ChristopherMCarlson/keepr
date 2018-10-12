@@ -11,7 +11,7 @@
       <select v-model="selectedVault">
         <option v-for="vault in vaults" :value=vault.id>{{vault.name}}</option>
       </select>
-      <button @click="addToVault(activeKeep.id)">Add to vault</button>
+      <button @click="addToVault(activeKeep)">Add to vault</button>
       <div class="container">
         <form @submit.prevent="editKeep(activeKeep)">
           <input type="text" v-model="activeKeep.name">
@@ -53,12 +53,14 @@
         console.log("This button works")
         this.$store.dispatch('editKeep', keep)
       },
-      addToVault(keepId) {
+      addToVault(keep) {
         let vaultkeep = {
-          keepId: keepId,
+          keepId: keep.id,
           vaultId: this.selectedVault
         }
         this.$store.dispatch('addToVault', vaultkeep)
+        keep.keeps++
+        this.$store.dispatch('editKeep', keep)
       }
     }
   };

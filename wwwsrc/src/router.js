@@ -14,7 +14,8 @@ import NewVault from './views/NewVault.vue'
 import MyVaults from './views/MyVaults.vue'
 // @ts-ignore
 import Keep from './views/Keep.vue'
-
+// @ts-ignore
+import VaultKeeps from './views/VaultKeeps.vue'
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
       path: '/keep',
       name: 'keep',
       component: Keep
+    },
+    {
+      path: '/vaultkeeps',
+      name: 'vaultkeeps',
+      component: VaultKeeps
     }
   ]
 })

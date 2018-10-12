@@ -8,6 +8,8 @@
       </div>
       <div>
         <button @click="deleteVault(vault)">Delete</button>
+        <br>
+        <button @click="viewVaultKeeps(vault.id)">View</button>
       </div>
     </div>
   </div>
@@ -31,12 +33,14 @@
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
       }
-      console.log("Mounted is working!")
       this.$store.dispatch('getMyVaults')
     },
     methods: {
       deleteVault(vault) {
         this.$store.dispatch('deleteVault', vault)
+      },
+      viewVaultKeeps(vaultId) {
+        this.$store.dispatch('viewVaultKeeps', vaultId)
       }
     }
   };
