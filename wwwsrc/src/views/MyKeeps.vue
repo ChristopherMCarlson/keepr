@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    <div class="card" v-for="keep in PublicKeeps">
-      <img :src=keep.img alt="KeepImg" style="width:100%; height: auto">
+  <div class="home row">
+    <div class="card" v-for="keep in MyKeeps">
+      <img :src=keep.img alt="KeepImg" style="width:100%; height: 35%">
       <div class="container">
         <h4><b>{{keep.name}}</b></h4>
         <p>{{keep.description}}</p>
@@ -27,7 +27,13 @@
             {{keep.shares}}
           </div>
         </div>
-
+      </div>
+      <div v-if=keep.isPrivate>
+        <button>Make Public</button>
+        <br>
+        <button :@click="delete(keep)">Delete</button>
+      </div>
+      <div v-else>
       </div>
     </div>
   </div>
@@ -38,15 +44,21 @@
     name: "home",
     data() {
       return {
-        PublicKeeps: this.$store.state.keeps
+        MyKeeps: this.$store.state.myKeeps
       }
     },
     mounted() {
       //blocks users not logged in
-      // if (!this.$store.state.user.id) {
-      //   this.$router.push({ name: "login" });
-      // }
-      this.$store.dispatch('getPublicKeeps')
+      if (!this.$store.state.user.id) {
+        this.$router.push({ name: "login" });
+      }
+      this.$store.dispatch('getMyKeeps')
+    },
+    methods: {
+      delete(keep) {
+        console.log("This button is kinda working")
+        this.$store.dispatch('deleteKeep', keep)
+      }
     }
   };
 </script>
@@ -57,6 +69,8 @@
     align-content: space-between;
     padding-left: 2%;
     padding-right: 2%;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .card {
@@ -64,6 +78,8 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     width: 15vw;
+    margin: 1%;
+    max-height: 50%;
   }
 
   /* On mouse-over, add a deeper shadow */
