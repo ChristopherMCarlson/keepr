@@ -22,7 +22,7 @@ namespace keepr.Controllers
       if (vault == null) { throw new Exception("Invalid Input"); }
       return newVault;
     }
-    [HttpDelete("DeleteVault")]
+    [HttpPost("DeleteVault")]
     public bool Delete([FromBody]Vault vault)
     {
       if (HttpContext.User.Identity.Name != vault.UserId) { throw new Exception("Cannot delete other's vaults!"); }
@@ -37,10 +37,11 @@ namespace keepr.Controllers
       return _repo.Edit(vault);
     }
 
-    [HttpGet("GetVaults")]
+    [HttpGet("GetMyVaults")]
     public IEnumerable<Vault> Get()
     {
-      return _repo.GetAll();
+      string userId = HttpContext.User.Identity.Name;
+      return _repo.GetMyVaults(userId);
     }
 
     public VaultController(VaultRepository repo)

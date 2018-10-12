@@ -7,24 +7,13 @@
         <p>{{keep.description}}</p>
         <div class="row space-between">
           <div class="col">
-            Keeps
+            Keeps: {{keep.keeps}}
           </div>
           <div class="col">
-            Views
+            Views: {{keep.views}}
           </div>
           <div class="col">
-            Shares
-          </div>
-        </div>
-        <div class="row space-between">
-          <div class="col">
-            {{keep.keeps}}
-          </div>
-          <div class="col">
-            {{keep.views}}
-          </div>
-          <div class="col">
-            {{keep.shares}}
+            Shares: {{keep.shares}}
           </div>
         </div>
       </div>
@@ -32,8 +21,11 @@
         <button @click="publicKeep(keep)">Make Public</button>
         <br>
         <button @click="deleteKeep(keep)">Delete</button>
+        <br>
+        <button @click="viewKeep(keep)">View</button>
       </div>
       <div v-else>
+        <button @click="viewKeep(keep)">View</button>
       </div>
     </div>
   </div>
@@ -66,6 +58,10 @@
       publicKeep(keep) {
         keep.isPrivate = false
         this.$store.dispatch('publicKeep', keep)
+      },
+      viewKeep(keep) {
+        keep.views++
+        this.$store.dispatch('viewKeep', keep)
       }
     }
   };
@@ -85,7 +81,7 @@
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    width: 15vw;
+    width: 20vw;
     margin: 1%;
     max-height: 50%;
   }

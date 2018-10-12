@@ -13,6 +13,9 @@
       <router-link tag="li" to="/newKeep">
         <a>New Keep</a>
       </router-link>
+      <router-link tag="li" to="/newVault">
+        <a>New Vault</a>
+      </router-link>
       <li v-if="loggedIn" class="top-bar-right">
         <button @click="logout()">Logout</button>
       </li>

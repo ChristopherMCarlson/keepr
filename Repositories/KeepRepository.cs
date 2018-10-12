@@ -41,7 +41,7 @@ namespace keepr.Repositories
     public Keep Edit(Keep keep)
     {
       int success = _db.Execute(@"
-        UPDATE keeps SET name = @name, description = @description, isPrivate = @isPrivate, img = @img
+        UPDATE keeps SET name = @name, description = @description, isPrivate = @isPrivate, img = @img, views = @views, keeps = @keeps, shares = @shares
         WHERE id = @Id;
       ", keep);
       if (success != 1) { return null; }

@@ -17,8 +17,8 @@ namespace keepr.Repositories
     public VaultKeep Create(VaultKeep vaultkeep)
     {
       int id = _db.ExecuteScalar<int>(@"
-        INSERT INTO vaultkeeps (VaultId, KeepId, UserId)
-        VALUES (@VaultId, @KeepId, @UserId);
+        INSERT INTO vaultkeeps (vaultId, keepId, userId)
+        VALUES (@vaultId, @keepId, @userId);
         SELECT LAST_INSERT_ID();", vaultkeep
       );
       vaultkeep.Id = id;
