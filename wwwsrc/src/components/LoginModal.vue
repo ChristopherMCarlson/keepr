@@ -1,9 +1,9 @@
 <template>
   <div class="login-modal">
     <!-- Button trigger modal -->
-    <li class="top-bar-right" data-toggle="modal" data-target="#exampleModalCenter">
-      Login/Register
-    </li>
+    <button class="top-bar-right" data-toggle="modal" data-target="#exampleModalCenter">
+      Create New
+    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -11,7 +11,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Login/Register</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Create New</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

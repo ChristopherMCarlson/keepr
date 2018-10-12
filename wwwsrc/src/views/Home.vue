@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="card" v-for="keep in PublicKeeps">
+    <div class="card" v-for="keep in keeps">
       <img :src=keep.img alt="KeepImg" style="width:100%; height: auto">
       <div class="container">
         <h4><b>{{keep.name}}</b></h4>
@@ -34,18 +34,23 @@
 </template>
 
 <script>
+  import { mapState } from "vuex"
   export default {
     name: "home",
     data() {
       return {
-        PublicKeeps: this.$store.state.keeps
+
       }
+    },
+    computed: {
+      ...mapState(["keeps"])
     },
     mounted() {
       //blocks users not logged in
       // if (!this.$store.state.user.id) {
       //   this.$router.push({ name: "login" });
       // }
+      this.$store.dispatch("authenticate");
       this.$store.dispatch('getPublicKeeps')
     }
   };

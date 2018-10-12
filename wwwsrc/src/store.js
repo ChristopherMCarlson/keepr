@@ -65,6 +65,13 @@ export default new Vuex.Store({
           console.log('Login Failed')
         })
     },
+    logout({ commit }) {
+      auth.delete('Logout')
+        .then(res => {
+          commit('setUser', {})
+          router.push({ name: 'home' })
+        })
+    },
     getPublicKeeps({ commit }) {
       api.get('keep/getKeeps')
         .then(res => {
@@ -77,10 +84,22 @@ export default new Vuex.Store({
           commit('setMyKeeps', res.data)
         })
     },
-    deleteKeep({ dispatch }) {
-      api.delete('keep/DeleteKeep')
+    deleteKeep({ dispatch }, keep) {
+      api.post('keep/DeleteKeep', keep)
         .then(() => {
           dispatch('getMyKeeps')
+        })
+    },
+    publicKeep({ dispatch }, keep) {
+      api.put('keep/EditKeep', keep)
+        .then(() => {
+          dispatch('getMyKeeps')
+        })
+    },
+    newKeep({ dispatch }, keep) {
+      api.post('keep/CreateKeep', keep)
+        .then(res => {
+          console.log(res.data)
         })
     }
   }

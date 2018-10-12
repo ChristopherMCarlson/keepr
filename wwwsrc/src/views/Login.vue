@@ -1,19 +1,19 @@
 <template>
     <div class="center">
-        <form v-if="loginForm" @submit.prevent="loginUser" class="row">
-            <input type="email" v-model="creds.email" placeholder="email" class="col">
-            <input type="password" v-model="creds.password" placeholder="password" class="col">
-            <button type="submit" class="col">Login</button>
+        <form v-if="loginForm" @submit.prevent="loginUser" class="row-form">
+            <input type="email" v-model="creds.email" placeholder="email">
+            <input type="password" v-model="creds.password" placeholder="password">
+            <button type="submit">Login</button>
         </form>
-        <form v-else @submit.prevent="register">
+        <form v-else @submit.prevent="register" class="row-form">
             <input type="text" v-model="newUser.username" placeholder="name">
             <input type="email" v-model="newUser.email" placeholder="email">
             <input type="password" v-model="newUser.password" placeholder="password">
             <button type="submit">Create Account</button>
         </form>
-        <div @click="loginForm = !loginForm" class="row">
-            <button v-if="loginForm">No account? Click to Register</button>
-            <button v-else>Already have an account? Click to Login</button>
+        <div @click="loginForm = !loginForm" class="row-form">
+            <button v-if="loginForm" class="row">No account? Click to Register</button>
+            <button v-else class="row">Already have an account? Click to Login</button>
         </div>
     </div>
 </template>
@@ -57,11 +57,13 @@
         justify-content: center;
         align-content: center;
         display: flex;
+        flex-direction: row;
     }
 
-    .row {
+    .row-form {
         display: flex;
         flex-direction: row;
+        height: 1.5rem;
     }
 
     .col {

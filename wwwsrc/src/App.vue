@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <ul class="page-margin">
+  <div id="app" class="page-margin">
+    <ul>
       <router-link tag="li" to="/">
         <a>Home</a>
       </router-link>
@@ -10,7 +10,12 @@
       <router-link tag="li" to="/myVaults">
         <a>My Vaults</a>
       </router-link>
-      <li v-if="loggedIn" class="top-bar-right"><a href="">Logout</a></li>
+      <router-link tag="li" to="/newKeep">
+        <a>New Keep</a>
+      </router-link>
+      <li v-if="loggedIn" class="top-bar-right">
+        <button @click="logout()">Logout</button>
+      </li>
       <router-link v-else class="top-bar-right" tag="li" to="/login">
         <a>Login/Register</a>
       </router-link>
@@ -25,16 +30,22 @@
     name: "app",
     data() {
       return {
-        loggedIn: true
+
       }
     },
-    mounted() {
+    computed: {
       //blocks users not logged in
-      if (!this.$store.state.user.id) {
-        this.loggedIn = false;
+      loggedIn() {
+        return this.$store.state.user.id
+      }
+    },
+    methods: {
+      logout() {
+        this.$store.dispatch('logout')
       }
     }
-  };
+  }
+
 </script>
 
 <style>
@@ -87,12 +98,25 @@
     background-color: #111;
   }
 
+  li p {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  /* Change the link color to #111 (black) on hover */
+  li p:hover {
+    background-color: #111;
+  }
+
   .top-bar-right {
     float: right;
     padding-right: 1%;
   }
 
   .page-margin {
-    margin-bottom: 64px;
+    padding: 3rem 0 0 0;
   }
 </style>

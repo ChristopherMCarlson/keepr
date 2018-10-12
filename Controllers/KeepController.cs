@@ -22,7 +22,7 @@ namespace keepr.Controllers
       if (keep == null) { throw new Exception("Invalid Input"); }
       return newKeep;
     }
-    [HttpDelete("DeleteKeep")]
+    [HttpPost("DeleteKeep")]
     public bool Delete([FromBody]Keep keep)
     {
       if (HttpContext.User.Identity.Name != keep.UserId) { throw new Exception("Cannot delete other's keeps!"); }

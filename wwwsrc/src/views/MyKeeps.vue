@@ -29,9 +29,9 @@
         </div>
       </div>
       <div v-if=keep.isPrivate>
-        <button>Make Public</button>
+        <button @click="publicKeep(keep)">Make Public</button>
         <br>
-        <button :@click="delete(keep)">Delete</button>
+        <button @click="deleteKeep(keep)">Delete</button>
       </div>
       <div v-else>
       </div>
@@ -44,7 +44,12 @@
     name: "home",
     data() {
       return {
-        MyKeeps: this.$store.state.myKeeps
+
+      }
+    },
+    computed: {
+      MyKeeps() {
+        return this.$store.state.myKeeps
       }
     },
     mounted() {
@@ -55,9 +60,12 @@
       this.$store.dispatch('getMyKeeps')
     },
     methods: {
-      delete(keep) {
-        console.log("This button is kinda working")
+      deleteKeep(keep) {
         this.$store.dispatch('deleteKeep', keep)
+      },
+      publicKeep(keep) {
+        keep.isPrivate = false
+        this.$store.dispatch('publicKeep', keep)
       }
     }
   };
