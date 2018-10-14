@@ -37,6 +37,13 @@ namespace keepr.Controllers
       return _repo.Edit(keep);
     }
 
+    [HttpPut("ViewKeep")]
+    public Keep View([FromBody]Keep keep)
+    {
+      keep.Views++;
+      return _repo.Edit(keep);
+    }
+
     [HttpGet("GetKeeps")]
     public IEnumerable<Keep> Get()
     {

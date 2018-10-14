@@ -1,6 +1,5 @@
 <template>
-  <div class="home row">
-
+  <div class="home">
     <div class="outer" v-for="keep in MyKeeps">
       <img :src=keep.img alt="Avatar" class="image">
       <div class="overlay">
@@ -9,16 +8,16 @@
           <p>{{keep.description}}</p>
         </div>
         <div class="bottom-text">
-          <div class="block-row">
-            <i class="fas fa-save block-row"></i>
+          <div class="block-row clickable-block">
+            <i class="fas fa-save block-row mr-1"></i>
             <p class="block-row">{{keep.keeps}}</p>
           </div>
-          <div class="block-row">
-            <i class="fas fa-eye block-row"></i>
+          <div class="block-row clickable-block" @click="viewKeep(keep)">
+            <i class="fas fa-eye block-row mr-1"></i>
             <p class="block-row">{{keep.views}}</p>
           </div>
-          <div class="block-row">
-            <i class="fas fa-share block-row"></i>
+          <div class="block-row clickable-block">
+            <i class="fas fa-share block-row mr-1"></i>
             <p class="block-row">{{keep.shares}}</p>
           </div>
         </div>
@@ -85,7 +84,6 @@
         this.$store.dispatch('publicKeep', keep)
       },
       viewKeep(keep) {
-        keep.views++
         this.$store.dispatch('viewKeep', keep)
       }
     }
@@ -146,6 +144,7 @@
     top: 20%;
     justify-content: space-around;
     display: flex;
+    align-items: center;
   }
 
   .block-row {
@@ -164,5 +163,15 @@
 
   .space-between {
     justify-content: space-between;
+  }
+
+  .clickable-block {
+    color: grey;
+    transition: .3s ease;
+    cursor: pointer;
+  }
+
+  .clickable-block:hover {
+    color: white;
   }
 </style>

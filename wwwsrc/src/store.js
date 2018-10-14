@@ -134,7 +134,7 @@ export default new Vuex.Store({
     },
     viewKeep({ dispatch, commit }, keep) {
       commit('setActiveKeep', keep)
-      api.put('keep/EditKeep', keep)
+      api.put('keep/ViewKeep', keep)
         .then(() => {
           router.push({ name: "keep" })
         })

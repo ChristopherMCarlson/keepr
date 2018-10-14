@@ -1,33 +1,26 @@
 <template>
   <div class="home">
-    <div class="card" v-for="keep in keeps">
-      <img :src=keep.img alt="KeepImg" style="width:100%; height: auto">
-      <div class="container">
-        <h4><b>{{keep.name}}</b></h4>
-        <p>{{keep.description}}</p>
-        <div class="row space-between">
-          <div class="col">
-            Keeps
+    <div class="outer" v-for="keep in keeps">
+      <img :src=keep.img alt="Avatar" class="image">
+      <div class="overlay">
+        <div class="text">
+          <h3>{{keep.name}}</h3>
+          <p>{{keep.description}}</p>
+        </div>
+        <div class="bottom-text">
+          <div class="block-row clickable-block">
+            <i class="fas fa-save block-row mr-1"></i>
+            <p class="block-row">{{keep.keeps}}</p>
           </div>
-          <div class="col">
-            Views
+          <div class="block-row clickable-block" @click="viewKeep(keep)">
+            <i class="fas fa-eye block-row mr-1"></i>
+            <p class="block-row">{{keep.views}}</p>
           </div>
-          <div class="col">
-            Shares
+          <div class="block-row clickable-block">
+            <i class="fas fa-share block-row mr-1"></i>
+            <p class="block-row">{{keep.shares}}</p>
           </div>
         </div>
-        <div class="row space-between">
-          <div class="col">
-            {{keep.keeps}}
-          </div>
-          <div class="col">
-            {{keep.views}}
-          </div>
-          <div class="col">
-            {{keep.shares}}
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -52,6 +45,11 @@
       // }
       this.$store.dispatch("authenticate");
       this.$store.dispatch('getPublicKeeps')
+    },
+    methods: {
+      viewKeep(keep) {
+        this.$store.dispatch('viewKeep', keep)
+      }
     }
   };
 </script>
@@ -64,21 +62,55 @@
     padding-right: 2%;
   }
 
-  .card {
-    /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    width: 15vw;
+  .outer {
+    position: relative;
+    width: 23%;
+    margin: 1% 1% 1% 1%;
   }
 
-  /* On mouse-over, add a deeper shadow */
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  .image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  /* Add some padding inside the card container */
-  .container {
-    padding: 2px 16px;
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.383);
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+  }
+
+  .outer:hover .overlay {
+    height: 100%;
+  }
+
+  .text {
+    white-space: nowrap;
+    color: white;
+    font-size: 1rem;
+  }
+
+  .bottom-text {
+    white-space: nowrap;
+    color: white;
+    font-size: 1rem;
+    position: relative;
+    width: 100%;
+    top: 20%;
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+  }
+
+  .block-row {
+    display: inline-block;
   }
 
   .row {
@@ -93,5 +125,15 @@
 
   .space-between {
     justify-content: space-between;
+  }
+
+  .clickable-block {
+    color: grey;
+    transition: .3s ease;
+    cursor: pointer;
+  }
+
+  .clickable-block:hover {
+    color: white;
   }
 </style>

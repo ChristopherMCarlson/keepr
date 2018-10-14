@@ -1,24 +1,35 @@
 <template>
-  <div class="home row">
-    <div class="card">
-      <img :src=activeKeep.img alt="KeepImg" style="width:100%; height: 35%">
-      <div class="container">
-        <h4><b>{{activeKeep.name}}</b></h4>
-        <p>{{activeKeep.description}}</p>
+  <div class="home center-content">
+    <div>
+      <div v-if="showEdit == false">
+        <h1>{{activeKeep.name}}</h1>
+        <h5>{{activeKeep.description}}</h5>
+        <img :src=activeKeep.img alt="" class="img-fit-screen">
+        <div class="row space-between">
+          <div>
+            <h2>Keeps</h2>
+            <h5>{{activeKeep.keeps}}</h5>
+          </div>
+          <div>
+            <h2>Views</h2>
+            <h5>{{activeKeep.views}}</h5>
+          </div>
+          <div>
+            <h2>Shares</h2>
+            <h5>{{activeKeep.shares}}</h5>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="card-2">
-      <select v-model="selectedVault">
-        <option v-for="vault in vaults" :value=vault.id>{{vault.name}}</option>
-      </select>
-      <button @click="addToVault(activeKeep)">Add to vault</button>
-      <div class="container">
-        <form @submit.prevent="editKeep(activeKeep)">
-          <input type="text" v-model="activeKeep.name">
-          <input type="text" v-model="activeKeep.description">
-          <input type="text" v-model="activeKeep.img">
+      <div v-else>
+        <form @submit.prevent="editKeep(activeKeep)" class="edit-form">
+          <input type="text" v-model="activeKeep.name" value=activeKeep.name>
+          <textarea type="text" v-model="activeKeep.description" value=activeKeep.description></textarea>
+          <input type="text" v-model="activeKeep.img" value=activeKeep.img>
           <button type="submit">Edit Keep</button>
         </form>
+      </div>
+      <div v-if="activeKeep.isPrivate == true && showEdit == false">
+        <button class="show-edit" @click="showEdit = true">Edit Keep</button>
       </div>
     </div>
   </div>
@@ -30,11 +41,7 @@
     data() {
       return {
         selectedVault: "",
-        keep: {
-          name: "",
-          description: "",
-          img: ""
-        }
+        showEdit: false
       }
     },
     mounted() {
@@ -50,8 +57,8 @@
     },
     methods: {
       editKeep(keep) {
-        console.log("This button works")
         this.$store.dispatch('editKeep', keep)
+        this.showEdit = false
       },
       addToVault(keep) {
         let vaultkeep = {
@@ -76,32 +83,9 @@
     flex-wrap: wrap;
   }
 
-  .card {
-    /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    width: 15vw;
-    margin: 1%;
-    max-height: 50%;
-  }
-
-  .card-2 {
-    /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    width: 45vw;
-    margin: 1%;
-    max-height: 50%;
-  }
-
-  /* On mouse-over, add a deeper shadow */
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  }
-
-  /* Add some padding inside the card container */
-  .container {
-    padding: 2px 16px;
+  .img-fit-screen {
+    width: auto;
+    height: 45vh;
   }
 
   .row {
@@ -116,5 +100,29 @@
 
   .space-between {
     justify-content: space-between;
+  }
+
+  .center-content {
+    justify-content: center;
+  }
+
+  .show-edit {
+    background-color: grey;
+    border: none;
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    transition: .5s ease;
+    cursor: pointer;
+  }
+
+  .show-edit:hover {
+    background-color: black
+  }
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
   }
 </style>
