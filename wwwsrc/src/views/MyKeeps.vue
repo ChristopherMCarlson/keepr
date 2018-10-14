@@ -4,7 +4,7 @@
       <img :src=keep.img alt="Avatar" class="image">
       <div class="overlay">
         <div class="text">
-          <h3>{{keep.name}}</h3>
+          <h4>{{keep.name}}</h4>
           <p>{{keep.description}}</p>
         </div>
         <div class="bottom-text">
@@ -23,35 +23,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="card" v-for="keep in MyKeeps">
-      <img :src=keep.img alt="KeepImg" style="width:100%; height: 35%">
-      <div class="container">
-        <h4><b>{{keep.name}}</b></h4>
-        <p>{{keep.description}}</p>
-        <div class="row space-between">
-          <div class="col">
-            Keeps: {{keep.keeps}}
-          </div>
-          <div class="col">
-            Views: {{keep.views}}
-          </div>
-          <div class="col">
-            Shares: {{keep.shares}}
-          </div>
-        </div>
-      </div>
-      <div v-if=keep.isPrivate>
-        <button @click="publicKeep(keep)">Make Public</button>
-        <br>
-        <button @click="deleteKeep(keep)">Delete</button>
-        <br>
-        <button @click="viewKeep(keep)">View</button>
-      </div>
-      <div v-else>
-        <button @click="viewKeep(keep)">View</button>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -79,10 +50,6 @@
       deleteKeep(keep) {
         this.$store.dispatch('deleteKeep', keep)
       },
-      publicKeep(keep) {
-        keep.isPrivate = false
-        this.$store.dispatch('publicKeep', keep)
-      },
       viewKeep(keep) {
         this.$store.dispatch('viewKeep', keep)
       }
@@ -91,19 +58,10 @@
 </script>
 
 <style>
-  /* .home {
-    padding-top: 5%;
-    align-content: space-between;
-    padding-left: 2%;
-    padding-right: 2%;
-    display: flex;
-    flex-wrap: wrap;
-  } */
-
   .outer {
     position: relative;
-    width: 23%;
-    margin: 1% 1% 1% 1%;
+    width: 20vw;
+    height: 30vh;
   }
 
   .image {
@@ -131,8 +89,10 @@
 
   .text {
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: white;
-    font-size: 1rem;
+    font-size: 1vw;
   }
 
   .bottom-text {
@@ -173,5 +133,9 @@
 
   .clickable-block:hover {
     color: white;
+  }
+
+  .home {
+    justify-content: space-around;
   }
 </style>
