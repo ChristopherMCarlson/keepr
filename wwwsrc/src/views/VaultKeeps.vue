@@ -8,7 +8,7 @@
           <p>{{keep.description}}</p>
         </div>
         <div>
-          <button class="remove-button" @click="removeKeep(keep.id)">Remove from Vault</button>
+          <button class="remove-button" @click="removeKeep(keep)">Remove from Vault</button>
         </div>
         <div class="bottom-text">
           <div class="block-row clickable-block">
@@ -49,8 +49,15 @@
       }
     },
     methods: {
-      removeKeep(keepId) {
-        this.$store.dispatch('removeKeep', keepId)
+      removeKeep(keep) {
+        let vaultKeep = {
+          KeepId: keep.id,
+          VaultId: this.$store.state.activeVault,
+          userId: this.$store.state.user.id
+        }
+        this.$store.dispatch('removeKeep', vaultKeep)
+        keep.keeps--
+        this.$store.dispatch('editKeep', keep)
       },
       publicKeep(keep) {
         keep.isPrivate = false

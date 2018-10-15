@@ -28,10 +28,11 @@ namespace keepr.Repositories
     public bool Delete(VaultKeep vaultkeep)
     {
       int success = _db.Execute(@"
-        DELETE FROM vaultkeeps WHERE id = @id;
+        DELETE FROM vaultkeeps WHERE KeepId = @KeepId AND VaultId = @VaultId;
       ", new
       {
-        id = vaultkeep.Id
+        KeepId = vaultkeep.KeepId,
+        VaultId = vaultkeep.VaultId
       });
       if (success != 1) { return false; }
       return true;

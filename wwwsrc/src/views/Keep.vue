@@ -32,6 +32,7 @@
           <input class="my-1" type="text" v-model="activeKeep.img" value=activeKeep.img>
           <button class="my-1 show-edit" type="submit">Edit Keep</button>
         </form>
+        <button class="show-public" @click="deleteKeep(activeKeep)">Delete</button>
       </div>
       <div v-if="showEdit == false">
         <select v-model="selectedVault">
@@ -75,6 +76,9 @@
       editKeep(keep) {
         this.$store.dispatch('editKeep', keep)
         this.showEdit = false
+      },
+      deleteKeep(keep) {
+        this.$store.dispatch('deleteKeep', keep)
       },
       publicKeep(keep) {
         keep.isPrivate = false

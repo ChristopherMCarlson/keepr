@@ -33,7 +33,6 @@ namespace keepr.Controllers
     [HttpPut("EditKeep")]
     public Keep Edit([FromBody]Keep keep)
     {
-      if (HttpContext.User.Identity.Name != keep.UserId) { throw new Exception("Cannot edit other's keeps!"); }
       return _repo.Edit(keep);
     }
 

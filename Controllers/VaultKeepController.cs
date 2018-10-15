@@ -22,7 +22,7 @@ namespace keepr.Controllers
       if (vaultkeep == null) { throw new Exception("Invalid Input"); }
       return newVaultKeep;
     }
-    [HttpDelete("DeleteVaultKeep")]
+    [HttpPost("DeleteVaultKeep")]
     public bool Delete([FromBody]VaultKeep vaultkeep)
     {
       if (HttpContext.User.Identity.Name != vaultkeep.UserId) { throw new Exception("Cannot delete other's vaultkeeps!"); }
