@@ -1,15 +1,14 @@
 <template>
   <div class="home row">
     <div class="card" v-for="vault in myVaults">
-      <img src="https://i.imgur.com/59e8C4d.jpg" alt="KeepImg" style="width:100%; height: 35%">
       <div class="container">
         <h4><b>{{vault.name}}</b></h4>
         <p>{{vault.description}}</p>
       </div>
       <div>
-        <button @click="deleteVault(vault)">Delete</button>
-        <br>
         <button @click="viewVaultKeeps(vault.id)">View</button>
+        <button @click="deleteVault(vault)">Delete</button>
+        <button @click="editVault(vault)">Edit</button>
       </div>
     </div>
   </div>
@@ -41,6 +40,9 @@
       },
       viewVaultKeeps(vaultId) {
         this.$store.dispatch('viewVaultKeeps', vaultId)
+      },
+      editVault(vault) {
+        this.$store.dispatch('viewEditVault', vault)
       }
     }
   };
@@ -60,9 +62,10 @@
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    width: 15vw;
+    width: 25vw;
     margin: 1%;
-    max-height: 50%;
+    min-height: 20vh;
+    max-height: 50vh;
   }
 
   /* On mouse-over, add a deeper shadow */

@@ -25,7 +25,8 @@ export default new Vuex.Store({
     myVaults: [],
     activeKeep: {},
     vaultKeeps: [],
-    activeVault: ''
+    activeVault: '',
+    activeEdit: {}
   },
   mutations: {
     setUser(state, user) {
@@ -48,6 +49,9 @@ export default new Vuex.Store({
     },
     setActiveVault(state, vault) {
       state.activeVault = vault
+    },
+    setActiveEdit(state, vault) {
+      state.activeEdit = vault
     }
   },
   actions: {
@@ -169,6 +173,16 @@ export default new Vuex.Store({
       api.post('vaultkeep/DeleteVaultKeep', vaultKeep)
         .then(() => {
           dispatch('viewVaultKeeps', vaultKeep.vaultId)
+        })
+    },
+    viewEditVault({ commit }, vault) {
+      commit('setActiveEdit', vault)
+      router.push({ name: "editVault" })
+    },
+    editVault({ commit }, vault) {
+      api.put('vault/EditVault', vault)
+        .then(() => {
+          router.push({ name: "myVaults" })
         })
     }
   }

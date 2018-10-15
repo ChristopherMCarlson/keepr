@@ -33,7 +33,6 @@ namespace keepr.Controllers
     [HttpPut("EditVault")]
     public Vault Edit([FromBody]Vault vault)
     {
-      if (HttpContext.User.Identity.Name != vault.UserId) { throw new Exception("Cannot edit other's vaults!"); }
       return _repo.Edit(vault);
     }
 
