@@ -1,9 +1,13 @@
 <template>
   <div class="center">
-    <form @submit.prevent="newVault" class="row-form">
-      <input type="text" v-model="vault.name" placeholder="Name">
-      <input type="text" v-model="vault.description" placeholder="Description">
-      <button type="submit">Create Vault</button>
+    <form @submit.prevent="newVault()" class="edit-form">
+      <h2>New Vault</h2>
+      <h5>Title</h5>
+      <input class="my-1" type="text" v-model="vault.name">
+      <p>{{remainingChar}}/20 Characters remaining</p>
+      <h5>Description</h5>
+      <textarea class="my-1" type="text" v-model="vault.description"></textarea>
+      <button class="my-1 show-edit" type="submit">Submit New Vault</button>
     </form>
   </div>
 </template>
@@ -24,6 +28,11 @@
           description: ""
         }
       };
+    },
+    computed: {
+      remainingChar() {
+        return (20 - this.vault.name.length)
+      }
     },
     methods: {
       newVault() {

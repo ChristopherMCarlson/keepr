@@ -34,7 +34,7 @@
         </form>
         <button class="show-public" @click="deleteKeep(activeKeep)">Delete</button>
       </div>
-      <div v-if="showEdit == false">
+      <div v-if="!showEdit">
         <select v-model="selectedVault">
           <option value="" disabled selected>Add to vault...</option>
           <option v-for="vault in vaults" :value=vault.id>{{vault.name}}</option>

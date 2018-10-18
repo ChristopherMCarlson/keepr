@@ -1,9 +1,15 @@
 <template>
     <div class="center">
-        <form v-if="loginForm" @submit.prevent="loginUser" class="row-form">
-            <input type="email" v-model="creds.email" placeholder="email">
-            <input type="password" v-model="creds.password" placeholder="password">
-            <button type="submit">Login</button>
+        <form v-if="loginForm" @submit.prevent="loginUser" class="edit-form">
+            <h2>Login</h2>
+            <h5>Email</h5>
+            <input class="my-1" type="text" v-model="creds.email">
+            <h5>Password</h5>
+            <input class="my-1" type="password" v-model="creds.password"></input>
+            <div>
+                <button type="submit" class="my-1">Login</button>
+                <button @click="loginForm = !loginForm">No account? Click to Register</button>
+            </div>
         </form>
         <form v-else @submit.prevent="register" class="row-form">
             <input type="text" v-model="newUser.username" placeholder="name">
@@ -11,10 +17,9 @@
             <input type="password" v-model="newUser.password" placeholder="password">
             <button type="submit">Create Account</button>
         </form>
-        <div @click="loginForm = !loginForm" class="row-form">
-            <button v-if="loginForm" class="row">No account? Click to Register</button>
-            <button v-else class="row">Already have an account? Click to Login</button>
-        </div>
+
+        <!-- <button v-else class="row">Already have an account? Click to Login</button> -->
+
     </div>
 </template>
 
